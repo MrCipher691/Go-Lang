@@ -31,9 +31,9 @@ func main() {
 		fmt.Println(slice)
 
 		if len(slice) == cap(slice) {
-			new_data := make([]int, cap(slice), (cap(slice) + 1))
-			copy(new_data, slice)
-			slice = new_data
+			newData := make([]int, cap(slice), (cap(slice) + 1))
+			copy(newData, slice)
+			slice = newData
 		}
 	}
 }
