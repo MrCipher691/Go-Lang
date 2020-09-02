@@ -1,11 +1,39 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+	"strconv"
+)
 
 func main() {
-	x := [...]int{11, 234, 123, 56, 345}
 
-	for i, v := range x {
-		fmt.Println("Index =", i, "| Values =", v)
+	var val int
+	var err error
+	var data string
+	slice := make([]int, 0, 3)
+
+	for {
+		fmt.Println("Enter integer (press 'x' to exit):")
+		fmt.Scan(&data)
+
+		if data == "x" {
+			return
+		}
+
+		if val, err = strconv.Atoi(data); err != nil {
+			fmt.Println("! Invalid Input !")
+			continue
+		}
+
+		slice = append(slice, val)
+		sort.Ints(slice)
+		fmt.Println(slice)
+
+		if len(slice) == cap(slice) {
+			new_data := make([]int, cap(slice), (cap(slice) + 1))
+			copy(new_data, slice)
+			slice = new_data
+		}
 	}
 }
