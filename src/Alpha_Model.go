@@ -1,39 +1,42 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"sort"
-	"strconv"
+	"os"
+	"strings"
 )
+
+type name struct {
+	fname string
+	lname string
+}
 
 func main() {
 
-	var val int
-	var err error
-	var data string
-	slice := make([]int, 0, 3)
+	read_input := bufio.NewScanner(os.Stdin)
+	fmt.Printf("\nPlease enter the filename containing a list of names: ")
+	read_input.Scan()
+	file_name := read_input.Text()
 
-	for {
-		fmt.Println("Enter integer (press 'x' to exit):")
-		fmt.Scan(&data)
-
-		if data == "x" {
-			return
-		}
-
-		if val, err = strconv.Atoi(data); err != nil {
-			fmt.Println("! Invalid Input !")
-			continue
-		}
-
-		slice = append(slice, val)
-		sort.Ints(slice)
-		fmt.Println(slice)
-
-		if len(slice) == cap(slice) {
-			newData := make([]int, cap(slice), (cap(slice) + 1))
-			copy(newData, slice)
-			slice = newData
-		}
+	file, err := os.Open(file_name)
+	if err != nil {
+		fmt.Println("\nFile could not be opened. Please make sure you have the")
+		fmt.Println("correct filename and path before running again.")
 	}
+
+	name_slice := make([]name, 0)
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		name_strings := strings.Fields(scanner.Text())
+		p := name{fname: name_strings[0], lname: name_strings[1]}
+		name_slice = append(name_slice, p)
+	}
+
+	fmt.Println("\nHere are your list of names from", file_name)
+
+	for i := 0; i < len(name_slice); i++ {
+		fmt.Println(name_slice[i].fname, name_slice[i].lname)
+	}
+
 }
