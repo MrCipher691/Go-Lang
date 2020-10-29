@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func wPrefersM1OverM(prefer [8][4]int, w, m, m1 int) bool {
+func new_proposal(prefer [8][4]int, w, m, m1 int) bool {
 	for i := 0; i < 4; i++ {
 		if prefer[w][i] == m1 {
 			return true
@@ -37,7 +37,7 @@ func stablemarriage(prefer [8][4]int) {
 			} else {
 				var m1 int
 				m1 = wPartner[w-4]
-				if wPrefersM1OverM(prefer, w, m, m1) == false {
+				if new_proposal(prefer, w, m, m1) == false {
 					wPartner[w-4] = m
 					mFree[m] = true
 					mFree[m1] = false
