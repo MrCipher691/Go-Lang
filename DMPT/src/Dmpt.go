@@ -79,7 +79,8 @@ func euclid(x, y int) int {
 
 //Driver Function
 func main() {
-	var ch, x, y, z int
+	var ch, x, y, z, temp int
+	var n, m, ph, phInt float64
 	var prefer = [8][4]int{{7, 5, 6, 4},
 		{5, 4, 6, 7},
 		{4, 5, 6, 7},
@@ -111,9 +112,6 @@ func main() {
 			fmt.Printf("GCD of %d & %d is %d\n", x, y, z)
 		}
 	case 3:
-		var n, m, ph, phInt float64
-		var temp int
-
 		fmt.Printf("Enter n; no. of pigeons: ")
 		fmt.Scanf("%f", &n)
 		fmt.Printf("Enter m; no. of pigeonholes: ")
