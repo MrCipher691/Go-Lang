@@ -70,8 +70,16 @@ func stablemarriage(prefer [8][4]int) {
 	}
 }
 
+func euclid(x, y int) int {
+	if y == 0 {
+		return x
+	}
+	return (euclid(y, x%y))
+}
+
 //Driver Function
 func main() {
+	var ch, x, y, z int
 	var prefer = [8][4]int{{7, 5, 6, 4},
 		{5, 4, 6, 7},
 		{4, 5, 6, 7},
@@ -81,5 +89,46 @@ func main() {
 		{0, 1, 2, 3},
 		{0, 1, 2, 3}}
 
-	stablemarriage(prefer)
+	fmt.Println("| -- MENU -- |")
+	fmt.Printf("1. Stable Marriage\n2. Euclid's Algorithm\n3. Pigeonhole Principle\n")
+	fmt.Printf("\nEnter your choice: ")
+	fmt.Scanf("%d", &ch)
+	fmt.Println("")
+
+	switch ch {
+	case 1:
+		stablemarriage(prefer)
+	case 2:
+		fmt.Printf("Enter 1st no.: ") //x = 8923794876682362
+		fmt.Scanf("%d", &x)
+		fmt.Printf("Enter 2nd no.: ") //y = 9384764854422
+		fmt.Scanf("%d", &y)
+		if x > y {
+			z = euclid(x, y)
+			fmt.Printf("GCD of %d & %d is %d\n", x, y, z)
+		} else {
+			z = euclid(y, x)
+			fmt.Printf("GCD of %d & %d is %d\n", x, y, z)
+		}
+	case 3:
+		var n, m, ph, phInt float64
+		var temp int
+
+		fmt.Printf("Enter n; no. of pigeons: ")
+		fmt.Scanf("%f", &n)
+		fmt.Printf("Enter m; no. of pigeonholes: ")
+		fmt.Scanf("%f", &m)
+
+		ph = (((n - 1) / m) + 1)
+		temp = int(ph)
+		phInt = float64(temp)
+
+		if n > m {
+			if ph > phInt {
+				fmt.Printf("If %.2f pigeons are accommodated in %.2f pigeonholes and since %.2f>%.2f, then one of the pigeonhole must contain at least %.2f pigeons (Acc. to formula %.2f)\n", n, m, n, m, phInt+1, ph)
+			} else {
+				fmt.Printf("If %.2f pigeons are accommodated in %.2f pigeonholes and since %.2f>%.2f, then one of the pigeonhole must contain at least %.2f pigeons (Acc. to formula %.2f)\n", n, m, n, m, phInt, ph)
+			}
+		}
+	}
 }
