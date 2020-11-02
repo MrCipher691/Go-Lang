@@ -70,13 +70,17 @@ func newProposal(prefer [8][4]int, w, m, m1 int) bool {
 	return false
 }
 
+// This function uses Eculid's Algorithm
 func euclid(x, y int) int {
+	// Stopping condition for recursive loop
 	if y == 0 {
 		return x
 	}
+	// Using recursion to calculate GCD of 2 given numbers
 	return (euclid(y, x%y))
 }
 
+// This function calculates multiplicative inverse of two co-prime numbers
 func multipliInverse(x, y int) int {
 	var z1, z2 int
 	longGCD(x, y, &z1, &z2)
@@ -99,16 +103,21 @@ func longGCD(x int, y int, x1 *int, x2 *int) int {
 
 //Driver Function
 func main() {
+	// Declaring all variables required for running the program
 	var ch, x, y, z, temp int
 	var n, m, ph, phInt float64
-	var prefer = [8][4]int{{7, 5, 6, 4},
-		{5, 4, 6, 7},
-		{4, 5, 6, 7},
-		{4, 5, 6, 7},
-		{0, 1, 2, 3},
-		{0, 1, 2, 3},
-		{0, 1, 2, 3},
-		{0, 1, 2, 3}}
+
+	// Preference order of men and women for stable marriage problem
+	// Men are numbered 0-3; (A-0, B-1, C-2, D-3)
+	// Women are numbered 4-7; (a-4, b-5, c-6, d-7)
+	var prefer = [8][4]int{{6, 5, 7, 4}, // Preference of A = c, b, d, a
+		{5, 4, 6, 7}, // Preference of B = b, a, c, d
+		{6, 4, 7, 5}, // Preference of C = c, a, d, b
+		{6, 4, 7, 5}, // Preference of D = c, a, d, b
+		{0, 1, 3, 2}, // Preference of a = A, B, D, C
+		{2, 0, 3, 1}, // Preference of b = C, A, D, B
+		{2, 1, 3, 0}, // Preference of c = C, B, D, A
+		{1, 0, 2, 3}} // Preference of d = B, A, C, D
 
 	fmt.Println("| -- MENU -- |")
 	fmt.Printf("1. Stable Marriage\n2. Euclid's Algorithm\n3. Pigeonhole Principle\n4. Multiplicative Inverse\n")
@@ -120,9 +129,9 @@ func main() {
 	case 1:
 		stablemarriage(prefer)
 	case 2:
-		fmt.Printf("Enter 1st no.: ") //x = 8923794876682362
+		fmt.Printf("Enter 1st no.: ") // x = 8923794876682362
 		fmt.Scanf("%d", &x)
-		fmt.Printf("Enter 2nd no.: ") //y = 9384764854422
+		fmt.Printf("Enter 2nd no.: ") // y = 9384764854422
 		fmt.Scanf("%d", &y)
 
 		if x > y {
@@ -133,9 +142,9 @@ func main() {
 			fmt.Printf("GCD of %d & %d is %d\n", x, y, z)
 		}
 	case 3:
-		fmt.Printf("Enter n; no. of pigeons: ")
+		fmt.Printf("Enter n; no. of pigeons: ") // n = 500
 		fmt.Scanf("%f", &n)
-		fmt.Printf("Enter m; no. of pigeonholes: ")
+		fmt.Printf("Enter m; no. of pigeonholes: ") // m = 45
 		fmt.Scanf("%f", &m)
 
 		ph = (((n - 1) / m) + 1)
