@@ -2,23 +2,6 @@ package main
 
 import "fmt"
 
-// This function returns true if woman 'w' prefers man 'm1' over man 'm'
-func newProposal(prefer [8][4]int, w, m, m1 int) bool {
-	// Check if w prefers m over her current engagment m1
-	for i := 0; i < 4; i++ {
-		// If m1 comes before m in list of w, then w prefers her
-		// Current engagement, don't do anything
-		if prefer[w][i] == m1 {
-			return true
-		}
-		// If m comes before m1 in w's list, then free her current engagement and engage her with m
-		if prefer[w][i] == m {
-			return false
-		}
-	}
-	return false
-}
-
 // Prints stable matching for 4 men & women. Men are numbered as 0 to 3. Women are numbereed as 4 to 7.
 func stablemarriage(prefer [8][4]int) {
 	// Stores partner of women. This is our output array that stores pairing information. The value of wPartner[i] indicates the partner assigned to woman 4+i.
@@ -70,11 +53,48 @@ func stablemarriage(prefer [8][4]int) {
 	}
 }
 
+// This function returns true if woman 'w' prefers man 'm1' over man 'm'
+func newProposal(prefer [8][4]int, w, m, m1 int) bool {
+	// Check if w prefers m over her current engagment m1
+	for i := 0; i < 4; i++ {
+		// If m1 comes before m in list of w, then w prefers her
+		// Current engagement, don't do anything
+		if prefer[w][i] == m1 {
+			return true
+		}
+		// If m comes before m1 in w's list, then free her current engagement and engage her with m
+		if prefer[w][i] == m {
+			return false
+		}
+	}
+	return false
+}
+
 func euclid(x, y int) int {
 	if y == 0 {
 		return x
 	}
 	return (euclid(y, x%y))
+}
+
+func multipliInverse(x, y int) int {
+	var z1, z2 int
+	longGCD(x, y, &z1, &z2)
+	return (((z1 % y) + y) % y)
+}
+
+func longGCD(x int, y int, x1 *int, x2 *int) int {
+	var x3, x4, x5 int
+	if x == 0 {
+		*x1 = 0
+		*x2 = 1
+		return y
+	}
+	x5 = longGCD(y%x, x, &x3, &x4)
+
+	*x1 = x4 - (y/x)*x3
+	*x2 = x3
+	return x5
 }
 
 //Driver Function
@@ -91,7 +111,7 @@ func main() {
 		{0, 1, 2, 3}}
 
 	fmt.Println("| -- MENU -- |")
-	fmt.Printf("1. Stable Marriage\n2. Euclid's Algorithm\n3. Pigeonhole Principle\n")
+	fmt.Printf("1. Stable Marriage\n2. Euclid's Algorithm\n3. Pigeonhole Principle\n4. Multiplicative Inverse\n")
 	fmt.Printf("\nEnter your choice: ")
 	fmt.Scanf("%d", &ch)
 	fmt.Println("")
@@ -104,6 +124,7 @@ func main() {
 		fmt.Scanf("%d", &x)
 		fmt.Printf("Enter 2nd no.: ") //y = 9384764854422
 		fmt.Scanf("%d", &y)
+
 		if x > y {
 			z = euclid(x, y)
 			fmt.Printf("GCD of %d & %d is %d\n", x, y, z)
@@ -126,6 +147,30 @@ func main() {
 				fmt.Printf("If %.2f pigeons are accommodated in %.2f pigeonholes and since %.2f>%.2f, then one of the pigeonhole must contain at least %.2f pigeons (Acc. to formula %.2f)\n", n, m, n, m, phInt+1, ph)
 			} else {
 				fmt.Printf("If %.2f pigeons are accommodated in %.2f pigeonholes and since %.2f>%.2f, then one of the pigeonhole must contain at least %.2f pigeons (Acc. to formula %.2f)\n", n, m, n, m, phInt, ph)
+			}
+		}
+	case 4:
+		fmt.Printf("For multiplicative inverse to exist both the numbers have to be co-prime.\n")
+		fmt.Printf("Enter 1st no.: ") //x = 392
+		fmt.Scanf("%d", &x)
+		fmt.Printf("Enter 2nd no.: ") //y = 27
+		fmt.Scanf("%d", &y)
+
+		if x > y {
+			z = euclid(x, y)
+			fmt.Printf("GCD of %d & %d is %d\n", x, y, z)
+		} else {
+			z = euclid(y, x)
+			fmt.Printf("GCD of %d & %d is %d\n", x, y, z)
+		}
+
+		if z != 1 {
+			fmt.Printf("! -- NO SOLUTION -- !\n")
+		} else {
+			if x > y {
+				fmt.Printf("Solution: %d\n", multipliInverse(y, x))
+			} else {
+				fmt.Printf("Solution: %d\n", multipliInverse(x, y))
 			}
 		}
 	}
