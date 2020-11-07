@@ -167,9 +167,9 @@ func main() {
 		if n > m {
 			// This if-else is defined to round up values so that we get final integer answers.
 			if ph > phInt {
-				fmt.Printf("If %.2f pigeons are accommodated in %.2f pigeonholes and since %.2f>%.2f, then one of the pigeonhole must contain at least %.2f pigeons (Acc. to formula %.2f)\n", n, m, n, m, phInt+1, ph)
+				fmt.Printf("If %.2f pigeons are accommodated in %.2f pigeonholes and since %.2f>%.2f,\nthen one of the pigeonhole must contain at least %.2f pigeons (Acc. to formula %.2f)\n", n, m, n, m, phInt+1, ph)
 			} else {
-				fmt.Printf("If %.2f pigeons are accommodated in %.2f pigeonholes and since %.2f>%.2f, then one of the pigeonhole must contain at least %.2f pigeons (Acc. to formula %.2f)\n", n, m, n, m, phInt, ph)
+				fmt.Printf("If %.2f pigeons are accommodated in %.2f pigeonholes and since %.2f>%.2f,\nthen one of the pigeonhole must contain at least %.2f pigeons (Acc. to formula %.2f)\n", n, m, n, m, phInt, ph)
 			}
 		}
 	case 4:
